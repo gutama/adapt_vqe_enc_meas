@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software or benchmark data, please cite the accompanying paper."
+title: "ADAPT-VQE Encoding and Measurement Grouping"
+type: software
+authors:
+  - family-names: Dipojono
+    given-names: Hermawan Kresno
+  - family-names: Utama
+    given-names: Ginanjar
+  - family-names: Ikhtiarudin
+    given-names: Azhar
+date-released: 2026-08-15
+preferred-citation:
+  type: article
+  title: "Encoding Dependence of ADAPT-VQE Gradient Measurements: Qubit-Wise Packing and Full-Commutation Invariance"
+  authors:
+    - family-names: Dipojono
+      given-names: Hermawan Kresno
+    - family-names: Utama
+      given-names: Ginanjar
+    - family-names: Ikhtiarudin
+      given-names: Azhar
+  year: 2026

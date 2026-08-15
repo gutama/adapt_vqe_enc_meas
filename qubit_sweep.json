@@ -1,0 +1,39 @@
+{
+  "N2": [
+    {
+      "molecule": "N2", "n_orb": 4, "n_qubits": 8, "n_elec": [1, 1],
+      "JW": {"n_terms": 80, "qwc": 25, "gc_raw_label_tiebreak": 6, "mean_weight": 3.3, "max_weight": 8, "compat_density": 0.4310126582278481, "qwc_lb": 25},
+      "BK": {"n_terms": 80, "qwc": 18, "gc_raw_label_tiebreak": 6, "mean_weight": 3.65, "max_weight": 7, "compat_density": 0.3810126582278481, "qwc_lb": 18},
+      "qwc_ratio_BK_over_JW": 0.72,
+      "gc_validation": {"symplectic": true, "support_equivalent": true, "paired_group_count": 6, "jw_raw_label_tiebreak": 6, "bk_raw_label_tiebreak": 6, "interpretation": "paired GC partition is encoding invariant; differing raw counts, if any, are heuristic tie-break artifacts"}
+    },
+    {
+      "molecule": "N2", "n_orb": 5, "n_qubits": 10, "n_elec": [2, 2],
+      "JW": {"n_terms": 195, "qwc": 75, "gc_raw_label_tiebreak": 10, "mean_weight": 4.123076923076923, "max_weight": 10, "compat_density": 0.33565952947396244, "qwc_lb": 75},
+      "BK": {"n_terms": 195, "qwc": 61, "gc_raw_label_tiebreak": 10, "mean_weight": 4.97948717948718, "max_weight": 9, "compat_density": 0.27840338355802274, "qwc_lb": 61},
+      "qwc_ratio_BK_over_JW": 0.8133333333333334,
+      "gc_validation": {"symplectic": true, "support_equivalent": true, "paired_group_count": 10, "jw_raw_label_tiebreak": 10, "bk_raw_label_tiebreak": 10, "interpretation": "paired GC partition is encoding invariant; differing raw counts, if any, are heuristic tie-break artifacts"}
+    },
+    {
+      "molecule": "N2", "n_orb": 6, "n_qubits": 12, "n_elec": [3, 3],
+      "JW": {"n_terms": 382, "qwc": 152, "gc_raw_label_tiebreak": 16, "mean_weight": 5.193717277486911, "max_weight": 12, "compat_density": 0.2984018358961674, "qwc_lb": 152},
+      "BK": {"n_terms": 382, "qwc": 142, "gc_raw_label_tiebreak": 16, "mean_weight": 5.803664921465969, "max_weight": 10, "compat_density": 0.22301466243421142, "qwc_lb": 137},
+      "qwc_ratio_BK_over_JW": 0.9342105263157895,
+      "gc_validation": {"symplectic": true, "support_equivalent": true, "paired_group_count": 16, "jw_raw_label_tiebreak": 16, "bk_raw_label_tiebreak": 16, "interpretation": "paired GC partition is encoding invariant; differing raw counts, if any, are heuristic tie-break artifacts"}
+    },
+    {
+      "molecule": "N2", "n_orb": 7, "n_qubits": 14, "n_elec": [4, 4],
+      "JW": {"n_terms": 669, "qwc": 196, "gc_raw_label_tiebreak": 22, "mean_weight": 5.763826606875934, "max_weight": 14, "compat_density": 0.2745361295346527, "qwc_lb": 196},
+      "BK": {"n_terms": 669, "qwc": 231, "gc_raw_label_tiebreak": 22, "mean_weight": 6.038863976083707, "max_weight": 10, "compat_density": 0.22610384611942036, "qwc_lb": 215},
+      "qwc_ratio_BK_over_JW": 1.1785714285714286,
+      "gc_validation": {"symplectic": true, "support_equivalent": true, "paired_group_count": 22, "jw_raw_label_tiebreak": 22, "bk_raw_label_tiebreak": 22, "interpretation": "paired GC partition is encoding invariant; differing raw counts, if any, are heuristic tie-break artifacts"}
+    },
+    {
+      "molecule": "N2", "n_orb": 8, "n_qubits": 16, "n_elec": [5, 5],
+      "JW": {"n_terms": 1176, "qwc": 343, "gc_raw_label_tiebreak": 30, "mean_weight": 6.482993197278912, "max_weight": 16, "compat_density": 0.2663192936749168, "qwc_lb": 338},
+      "BK": {"n_terms": 1176, "qwc": 299, "gc_raw_label_tiebreak": 35, "mean_weight": 6.107142857142857, "max_weight": 10, "compat_density": 0.2522405557967868, "qwc_lb": 269},
+      "qwc_ratio_BK_over_JW": 0.8717201166180758,
+      "gc_validation": {"symplectic": true, "support_equivalent": true, "paired_group_count": 30, "jw_raw_label_tiebreak": 30, "bk_raw_label_tiebreak": 35, "interpretation": "paired GC partition is encoding invariant; differing raw counts, if any, are heuristic tie-break artifacts"}
+    }
+  ]
+}

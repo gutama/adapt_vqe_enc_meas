@@ -1,0 +1,252 @@
+\documentclass[aps,pra,twocolumn,superscriptaddress,nofootinbib,floatfix]{revtex4-2}
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{bm}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,hypertexnames=false]{hyperref}
+\usepackage{xcolor}
+\usepackage{balance}
+\usepackage{float}
+
+\newcommand{\Mind}{M_{\mathrm{ind}}}
+\newcommand{\Mshare}{M_{\mathrm{share}}}
+\input{generated_results.tex}
+
+\begin{document}
+
+\title{Encoding Dependence of ADAPT-VQE Gradient Measurements:\\
+Qubit-Wise Packing and Full-Commutation Invariance}
+
+\author{Hermawan Kresno Dipojono}
+\email{dipojono@itb.ac.id}
+\affiliation{Department of Engineering Physics, Faculty of Industrial Technology, Institut Teknologi Bandung, Jalan Ganesha 10, Bandung 40132, Indonesia}
+\affiliation{Research Center for Nanoscience and Nanotechnology, Institut Teknologi Bandung, Jalan Ganesha 10, Bandung 40132, Indonesia}
+\author{Ginanjar Utama}
+\email{ginanjar.utama@gmail.com}
+\affiliation{Department of Engineering Physics, Faculty of Industrial Technology, Institut Teknologi Bandung, Jalan Ganesha 10, Bandung 40132, Indonesia}
+\author{Azhar Ikhtiarudin}
+\email{azharikhtiarudin@gmail.com}
+\affiliation{Department of Engineering Physics, Faculty of Industrial Technology, Institut Teknologi Bandung, Jalan Ganesha 10, Bandung 40132, Indonesia}
+\date{August 15, 2026}
+
+\begin{abstract}
+ADAPT-VQE selects operators from commutator gradients, so its measurement burden is governed by the Pauli support of $-i[H,A_j]$ rather than by the mapped operator pool alone. We compare Jordan--Wigner (JW) and Bravyi--Kitaev (BK) encodings for molecular ADAPT-VQE at the level of gradient observables, grouping relations, and variance-aware allocation. In three 8-qubit STO-3G active spaces, gradient support is \GradPoolMin--\GradPoolMax$\times$ larger than pool support. Under qubit-wise commutativity (QWC), BK reduces largest-first gradient grouping counts by \QWCRedMin--\QWCRedMax, and in every molecule the BK feasible count lies below the JW clique lower bound. An $N_2$ sweep from 8 to 16 qubits is non-monotonic: BK/JW QWC ratios are \SweepRatios; BK is provably worse at 14 qubits and provably better at 16 qubits. Full Pauli commutation behaves differently. JW and BK are related by an invertible Clifford/binary basis transformation, which induces an isomorphism of full-commutation conflict graphs; a partition transferred through the Pauli bijection has identical cardinality and identical grouped variance. Finally, a shared-shot convex allocation shows that summing independently optimized gradient costs can exceed the fixed-group shared optimum by \SharedOverstatementMin--\SharedOverstatementMax$\times$ across the QWC partitions studied here. Encoding choice can therefore change tensor-product measurement packing and the resulting sampling cost, but not the abstract full-commutation graph for Clifford-equivalent linear encodings.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The adaptive variational quantum eigensolver (ADAPT-VQE) constructs an ansatz by ranking candidate generators according to energy gradients and adding operators iteratively~\cite{grimsley2019adaptive}. Variants based on qubit excitations, symmetry-aware pools, and denser operator insertion seek to reduce circuit depth or improve optimization behavior~\cite{tang2021qubitadapt,shkolnikov2023symmetry,anastasiou2024tetris}. The adaptive selection step, however, creates a measurement problem: the quantity used to rank generator $A_j$ is a commutator expectation value, not the expectation value of $A_j$ itself~\cite{anastasiou2023gradients}. Measurement reuse and variance-aware allocation can materially change the cost of estimating these gradients~\cite{nykanen2025aimadapt,ikhtiarudin2026shot}.
+
+A second design choice is the fermion-to-qubit encoding. Jordan--Wigner (JW) has a simple parity string structure, while Bravyi--Kitaev (BK) redistributes occupation and parity information and can lower operator locality for many terms~\cite{bravyi2002fermionic,seeley2012bravyi,tranter2015bkproperties,tranter2018comparison}. Lower Pauli weight does not, by itself, imply fewer measurement settings. Measurement cost depends on the compatibility relation imposed on pairs of Pauli words and on the algorithm used to partition the resulting graph~\cite{izmaylov2019revising,verteletskyi2020mcc,yen2020measuring,crawford2021sortedinsertion}.
+
+This paper separates three questions. First, how much larger is the Pauli support of the ADAPT gradient observables than the support of the operator pool? Second, can JW and BK change tensor-product-basis grouping under qubit-wise commutativity (QWC)? Third, can the same encodings change the full/general-commutation (GC) graph? We also distinguish setting count from variance-aware sampling cost by comparing independent per-gradient allocation with a continuous allocation that reuses each group measurement across all gradient components.
+
+The resulting picture is sharp. QWC is representation dependent and exhibits certified, non-monotonic JW/BK differences. Full commutation is representation invariant for the JW--BK pair because the two encodings are related by a Clifford transformation. Variance-aware sampling adds another layer: fewer groups need not imply a smaller sampling metric for a particular heuristic partition.
+
+\section{Gradient observables and measurement metrics}
+
+For a normalized variational state $|\psi\rangle$ and anti-Hermitian generator $A_j$, define the Hermitian ADAPT observable
+\begin{equation}
+ C_j=-i[H,A_j]=\sum_{p} c_{jp}P_p,
+ \label{eq:gradientobs}
+\end{equation}
+where $P_p$ are Pauli words. Up to the generator convention, the ADAPT ranking signal is $\langle C_j\rangle$. The relevant simultaneous-measurement problem is therefore the union of Pauli terms appearing in the $C_j$ rather than the Pauli support of the $A_j$ themselves.
+
+Two Pauli words are \emph{qubit-wise commuting} when, on every qubit, their local factors are equal or at least one factor is the identity. A QWC family is measurable in a common tensor-product Pauli basis. By contrast, two words are \emph{generally commuting} when their full Pauli operators commute; GC families may require entangling Clifford diagonalization~\cite{yen2020measuring,verteletskyi2020mcc}. In both cases, grouping can be written as graph coloring: vertices are Pauli words and edges connect incompatible pairs. We report deterministic largest-first (LF) greedy coloring, sorted insertion (SI), random-order diagnostics, and clique lower bounds. SI coefficient magnitudes are quantized to $10^{-12}$ before ordering so that floating-point summation jitter cannot change tie classes.
+
+For variance-aware comparisons, let a fixed partition contain groups $G_g$, and define the contribution of group $g$ to gradient $j$ as
+\begin{equation}
+ O_{jg}=\sum_{p\in G_g}c_{jp}P_p,
+ \qquad
+ V_{jg}=\mathrm{Var}_{\psi}(O_{jg}).
+ \label{eq:groupvar}
+\end{equation}
+If every gradient is allocated shots as a separate experiment, the continuous variance metric is
+\begin{equation}
+ \Mind=\sum_j\left(\sum_g\sqrt{V_{jg}}\right)^2.
+ \label{eq:mind}
+\end{equation}
+This is a feasible sampling cost for independent gradient estimation. It does not exploit that the same group samples can contribute to several $j$.
+
+For shared group measurements, consider
+\begin{align}
+ \Mshare=\min_{n_g>0}\quad &\sum_g n_g,\\
+ \text{s.t.}\quad &\sum_g\frac{V_{jg}}{n_g}\le 1,\qquad \forall j.
+ \label{eq:mshare}
+\end{align}
+The right-hand side corresponds to unit target variance; a target standard error $\epsilon$ rescales the optimum by $1/\epsilon^2$. The dual is
+\begin{equation}
+ \max_{\lambda_j\ge0}
+ 2\sum_g\sqrt{\sum_j\lambda_jV_{jg}}-\sum_j\lambda_j.
+ \label{eq:dual}
+\end{equation}
+We solve the dual in log-parameters $\lambda_j=e^{\mu_j}$ after screening variance entries below a relative numerical threshold. The implementation checks every primal constraint and the relative duality gap. Integer-shot rounding and best-arm confidence guarantees are separate statistical design questions and are not included in $\Mshare$.
+
+\section{Full-commutation invariance under JW--BK transformation}
+
+Linear fermion encodings can be viewed as binary changes of basis on occupation/parity information~\cite{chiew2024ternary,chiew2025optimal}. For a fixed register size, JW and BK are related by an invertible Clifford transformation $U$. Thus, for every represented fermionic operator $O$,
+\begin{equation}
+ \Phi_{\mathrm{BK}}(O)=U\Phi_{\mathrm{JW}}(O)U^\dagger,
+ \label{eq:cliffordmap}
+\end{equation}
+up to the mapper's fixed Pauli phase convention.
+
+\paragraph{Proposition.}
+For paired JW and BK Pauli supports related by Eq.~(\ref{eq:cliffordmap}), the GC conflict graphs are isomorphic. Consequently their chromatic numbers are identical, and any valid GC partition transfers between encodings without changing the number of groups.
+
+\paragraph{Proof.}
+For Pauli words $P$ and $Q$,
+\begin{equation}
+ [UPU^\dagger,UQU^\dagger]=U[P,Q]U^\dagger.
+\end{equation}
+Hence $[P,Q]=0$ if and only if the transformed words commute. Clifford conjugation is bijective on the Pauli group, so the vertex correspondence preserves every GC conflict edge. \hfill$\square$
+
+The same transfer preserves grouped statevector variances. With $|\psi_{\mathrm{BK}}\rangle=U|\psi_{\mathrm{JW}}\rangle$ and $O_g^{\mathrm{BK}}=UO_g^{\mathrm{JW}}U^\dagger$,
+\begin{equation}
+ \mathrm{Var}_{\psi_{\mathrm{BK}}}(O_g^{\mathrm{BK}})
+ =\mathrm{Var}_{\psi_{\mathrm{JW}}}(O_g^{\mathrm{JW}}).
+ \label{eq:varinv}
+\end{equation}
+Therefore a label-sensitive greedy algorithm can return different GC covers in JW and BK even though the underlying graph and every transferred partition are equivalent. QWC has no analogous invariance because an entangling Clifford can change the local Pauli axes and identity pattern on individual qubits.
+
+\section{Benchmark protocol}
+
+We study LiH, linear BeH$_2$, and H$_2$O in STO-3G at bond lengths scaled to $2R_e$. Each calculation retains four spatial orbitals, giving eight spin orbitals and eight qubits. The reference is the restricted Hartree--Fock determinant, and active-space CASCI provides the exact-energy reference. The operator pool contains spin-complemented singles and opposite-spin double complements.
+
+ADAPT appends the generator with the largest absolute gradient and reoptimizes all amplitudes with L-BFGS-B until $\max_j|g_j|<10^{-4}$ or the iteration cap is reached. State propagation uses SciPy's \texttt{expm\_multiply}, an algorithm for the action of the matrix exponential based on scaling and truncated Taylor series~\cite{almohy2011expmv,virtanen2020scipy}. The calculations use Qiskit/Qiskit Nature for fermionic mappings and operator handling and PySCF for molecular integrals and reference calculations~\cite{qiskit2024,sun2020pyscf}. The numerical stack is Python 3.12.3, Qiskit 2.5.2, Qiskit Nature 0.8.0, PySCF 2.14.0, SciPy 1.17.1, and NumPy 2.4.4~\cite{harris2020numpy}.
+
+For every molecule we construct the JW and BK Hamiltonian, mapped pool, final-state gradient commutators, QWC and GC partitions, clique lower bounds, and exact statevector group variances. The JW-to-BK symplectic map is reconstructed from the mapper Majorana tables and checked for support equivalence before GC partitions are transferred.
+
+\section{Results}
+
+\subsection{Gradient support is substantially larger than pool support}
+
+Table~\ref{tab:support} shows the expansion from mapped pool support to the union of gradient-commutator terms. The gradient support is \GradPoolMin--\GradPoolMax$\times$ larger than the pool support in all three 8-qubit systems. This difference matters because a measurement study based only on the pool Pauli words omits most of the observables used in ADAPT selection.
+
+\begin{table*}[t]
+\caption{ADAPT benchmark summary. ``Pool terms'' and ``gradient terms'' are unique Pauli words in the mapped pool and in the union of final-state commutator observables, respectively. The final column is the absolute ADAPT energy error relative to active-space CASCI.}
+\label{tab:support}
+\centering
+\begin{tabular}{lrrrrrrr}
+\toprule
+System & qubits & pool ops & pool terms & gradient terms & ratio & ADAPT ops & $|\Delta E|$ (m$E_h$)\\
+\midrule
+\SupportRows
+\bottomrule
+\end{tabular}
+\end{table*}
+
+LiH reaches the active-space exact energy with four selected operators. BeH$_2$ and H$_2$O recover 97.36\% and 93.51\% of the active-space correlation energy, respectively, within the fixed iteration protocol. The JW and BK runs give representation-invariant ADAPT and exact energies to numerical precision.
+
+\subsection{BK gives a certified QWC reduction in the 8-qubit gradient sets}
+
+Table~\ref{tab:qwc} compares QWC grouping. Under LF, BK reduces the number of gradient measurement settings by \QWCRedMin--\QWCRedMax. More importantly, this ordering is certified without assuming that greedy coloring is optimal: in each molecule the BK LF feasible count is smaller than the JW clique lower bound. Thus no exact coloring of the JW conflict graph can reverse the JW/BK ordering for these three gradient supports.
+
+\begin{table*}[t]
+\caption{QWC grouping of the gradient-commutator support. LF and SI are feasible group counts; LB is a clique lower bound. ``Reduction'' is the LF decrease from JW to BK.}
+\label{tab:qwc}
+\centering
+\begin{tabular}{lrrrrrrr}
+\toprule
+& \multicolumn{3}{c}{Largest first} & \multicolumn{2}{c}{Sorted insertion} & \multicolumn{2}{c}{Clique LB}\\
+System & JW & BK & reduction (\%) & JW & BK & JW & BK\\
+\midrule
+\QWCRows
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The LF and SI counts also show that the partitioning heuristic remains part of the resource estimate. A mapping can improve the compatibility graph while a particular heuristic still explores it differently. We therefore report lower bounds alongside feasible counts rather than treating one greedy result as a chromatic number.
+
+\subsection{The N2 sweep is non-monotonic}
+
+To probe register-size dependence, Table~\ref{tab:sweep} gives a separate $N_2$ Hamiltonian sweep from 8 to 16 qubits. The BK/JW LF ratios are \SweepRatios. At 14 qubits, the BK lower bound 215 exceeds the JW feasible count 196, proving that BK requires more QWC groups for that instance. At 16 qubits, the BK feasible count 299 is below the JW lower bound 338, proving the opposite ordering.
+
+\begin{table*}[t]
+\caption{$N_2$ Hamiltonian QWC sweep. Each LF/LB entry gives a feasible largest-first count and a clique lower bound. Mean and maximum Pauli weights are shown as JW/BK.}
+\label{tab:sweep}
+\centering
+\begin{tabular}{rrrrrrr}
+\toprule
+qubits & Pauli terms & JW LF/LB & BK LF/LB & BK/JW LF & mean weight & max weight\\
+\midrule
+\SweepRows
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Pauli weight does not determine this behavior. At 8, 10, and 12 qubits BK has a larger mean weight yet fewer QWC groups. At 14 qubits BK has a smaller maximum weight (10 rather than 14) but is provably worse in QWC packing. QWC depends on the joint pattern of local axes and identity locations across pairs of words, not only on single-word weight.
+
+\subsection{Shared-shot allocation changes the sampling scale}
+
+Table~\ref{tab:metrics} compares $\Mind$ and $\Mshare$ for the LF QWC partitions. Sharing each measurement group across all gradient components reduces the continuous metric substantially: across LF and SI QWC partitions, $\Mind/\Mshare$ ranges from \SharedOverstatementMin to \SharedOverstatementMax. The qualitative mapping ordering under LF is retained: LiH favors JW, while BeH$_2$ and H$_2$O favor BK.
+
+\begin{table*}[t]
+\caption{Variance-aware metrics for LF QWC partitions. $\Delta$ is the percentage change from JW to BK. $\Mind$ optimizes each gradient independently; $\Mshare$ reuses group shots across the complete gradient vector.}
+\label{tab:metrics}
+\centering
+\begin{tabular}{lrrrrrr}
+\toprule
+& \multicolumn{3}{c}{$\Mind$} & \multicolumn{3}{c}{$\Mshare$}\\
+System & JW & BK & $\Delta$ (\%) & JW & BK & $\Delta$ (\%)\\
+\midrule
+\MetricRows
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Setting count alone is therefore insufficient to predict sampling cost. LiH has substantially fewer BK QWC groups under LF, yet its LF shared metric is 24.5\% larger than JW because the state-dependent grouped variances differ. The heuristic can also change the sign of the mapping comparison: for LiH, SI gives a BK/JW change of \LiHSIIndDelta under $\Mind$ and \LiHSISharedDelta under $\Mshare$, whereas LF gives positive changes. The encoding, grouping algorithm, and allocation objective must be treated as distinct optimization layers.
+
+\subsection{GC partitions transfer exactly between encodings}
+
+Table~\ref{tab:gc} gives the numerical GC check on the gradient supports. Raw LF counts can differ because the last greedy tie-break uses Pauli labels, which change under Clifford conjugation. Transferring the JW partition through the Pauli bijection gives the same number of groups in BK, and the paired $\Mind$ values agree within a maximum relative difference of $\GCPairedMaxRel$.
+
+\begin{table}[H]
+\caption{GC invariance check. ``Raw'' applies label-sensitive LF separately; ``paired'' transfers the JW partition to BK. The last column is the relative difference between paired $\Mind$ values.}
+\label{tab:gc}
+\centering
+\begin{tabular}{lrrr}
+\toprule
+System & raw JW/BK & paired & rel. $\Mind$ diff.\\
+\midrule
+\GCPairedRows
+\bottomrule
+\end{tabular}
+\end{table}
+
+This result concerns the abstract GC compatibility graph. It does not imply equal hardware cost for measuring a commuting family. The diagonalizing Clifford, routing overhead, gate error, and state-preparation cost can still depend on the encoded Pauli structure. Those quantities require a hardware-level cost model rather than a chromatic-number comparison.
+
+\section{Reproducibility}
+
+The accompanying repository stores the machine-readable benchmark outputs, the $N_2$ sweep, deterministic grouping code, the shared-shot optimizer, the JW--BK symplectic validation, and scripts that generate the manuscript tables directly from JSON. The core test suite exercises QWC/GC relations, dense-versus-memory-bounded grouping equivalence, deterministic ordering, GF(2) symplectic algebra, and shared-shot allocation. With the full chemistry stack installed, integration checks additionally compare propagation routines and mapper-dependent operator construction.
+
+Several invariants are enforced during benchmark generation: state normalization at every ADAPT step; explicit optimizer diagnostics; agreement of exact qubit-Hamiltonian and active-space CASCI energies; equality of JW/BK physical energies; support equivalence under the reconstructed symplectic map; validity of transferred GC groups; and equality of paired GC variance metrics. The continuous shared-shot solution is accepted only when all primal constraints and the duality-gap tolerance are satisfied.
+
+\section{Discussion}
+
+The results identify three different ways in which ``measurement reduction'' can be used. A fermion-to-qubit encoding changes the Pauli representation. A measurement relation determines which words can share a setting. A partitioning and allocation procedure converts compatibility into an experimental schedule. Conflating these layers can make a representation look better or worse for reasons unrelated to the underlying physics.
+
+For QWC, the local tensor-product structure makes encoding choice a genuine lever. The 8-qubit molecular gradients show a large certified BK advantage, while the $N_2$ sweep proves that this advantage is not monotonic with register size. The result also cautions against using mean or maximum Pauli weight as a proxy for measurement packing.
+
+For GC, the mathematical situation is stronger: Clifford-equivalent linear encodings preserve the commutation graph exactly. Any apparent gain in GC group count from independent label-sensitive greedy runs is a property of the heuristic path, not of the graph. Encoding may still affect the circuit used to diagonalize a GC group, which is a separate and potentially important optimization target.
+
+The variance results add a further distinction. Group counts are state independent, whereas $\Mind$ and $\Mshare$ depend on coefficients, state, grouping, and statistical objective. The gap between independent and shared allocation grows markedly in the larger benchmark. Future comparisons should therefore report both combinatorial structure and a sampling objective matched to how data are actually reused.
+
+The present chemistry study remains small. It does not establish an asymptotic BK advantage, and the $N_2$ oscillation is not assigned to a particular tree boundary or encoding feature. Larger active spaces, alternative linear encodings, hardware-native diagonalization cost, and finite-shot best-arm selection are natural extensions.
+
+\section{Conclusion}
+
+ADAPT-VQE measurement analysis should be performed on the gradient commutators rather than on the operator pool alone. For three 8-qubit molecular active spaces, BK yields a lower-bound-certified reduction in QWC gradient groups relative to JW, while an $N_2$ sweep demonstrates that the advantage can reverse with register size. Pauli weight alone does not predict this packing behavior. Full Pauli commutation, in contrast, is invariant under the JW--BK Clifford transformation: paired GC partitions have identical cardinality and grouped variance. Shared-shot optimization further shows that independently allocating every gradient can substantially overestimate the fixed-group sampling requirement. Taken together, these results delimit the role of fermion encoding in adaptive VQE: it can materially alter tensor-product-basis measurement schedules and their variance-aware cost, but it cannot improve the abstract full-commutation graph for Clifford-equivalent linear encodings.
+
+\begin{acknowledgments}
+The calculations use open-source software from the Qiskit, Qiskit Nature, PySCF, NumPy, and SciPy communities.
+\end{acknowledgments}
+
+\balance
+\bibliographystyle{apsrev4-2}
+\bibliography{references}
+
+\end{document}
