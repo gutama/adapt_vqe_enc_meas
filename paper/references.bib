@@ -1,0 +1,296 @@
+% ===========================================================================
+%  VQE / ADAPT-VQE foundations
+% ===========================================================================
+@article{peruzzo2014variational,
+  title={A variational eigenvalue solver on a photonic quantum processor},
+  author={Peruzzo, Alberto and McClean, Jarrod and Shadbolt, Peter and Yung, Man-Hong and Zhou, Xiao-Qi and Love, Peter J and Aspuru-Guzik, Al{\'a}n and O'Brien, Jeremy L},
+  journal={Nature Communications}, volume={5}, pages={4213}, year={2014}
+}
+
+@article{mcclean2016theory,
+  title={The theory of variational hybrid quantum-classical algorithms},
+  author={McClean, Jarrod R and Romero, Jonathan and Babbush, Ryan and Aspuru-Guzik, Al{\'a}n},
+  journal={New Journal of Physics}, volume={18}, number={2}, pages={023023}, year={2016}
+}
+
+@article{kandala2017hardware,
+  title={Hardware-efficient variational quantum eigensolver for small molecules and quantum magnets},
+  author={Kandala, Abhinav and Mezzacapo, Antonio and Temme, Kristan and Takita, Maika and Brink, Markus and Chow, Jerry M and Gambetta, Jay M},
+  journal={Nature}, volume={549}, number={7671}, pages={242--246}, year={2017}
+}
+
+@article{grimsley2019adaptive,
+  title={An adaptive variational algorithm for exact molecular simulations on a quantum computer},
+  author={Grimsley, Harper R and Economou, Sophia E and Barnes, Edwin and Mayhall, Nicholas J},
+  journal={Nature Communications}, volume={10}, number={1}, pages={3007}, year={2019}
+}
+
+@article{mcclean2018barren,
+  title={Barren plateaus in quantum neural network training landscapes},
+  author={McClean, Jarrod R and Boixo, Sergio and Smelyanskiy, Vadim N and Babbush, Ryan and Neven, Hartmut},
+  journal={Nature Communications}, volume={9}, number={1}, pages={4812}, year={2018}
+}
+
+@article{romero2018strategies,
+  title={Strategies for quantum computing molecular energies using the unitary coupled cluster ansatz},
+  author={Romero, Jonathan and Babbush, Ryan and McClean, Jarrod R and Hempel, Cornelius and Love, Peter J and Aspuru-Guzik, Al{\'a}n},
+  journal={Quantum Science and Technology}, volume={4}, number={1}, pages={014008}, year={2018}
+}
+
+@article{tilly2022vqereview,
+  title={The Variational Quantum Eigensolver: A review of methods and best practices},
+  author={Tilly, Jules and Chen, Hongxiang and Cao, Shuxiang and Picozzi, Dario and Setia, Kanav and Li, Ying and Grant, Edward and Wossnig, Leonard and Rungger, Ivan and Booth, George H and Tennyson, Jonathan},
+  journal={Physics Reports}, volume={986}, pages={1--128}, year={2022}
+}
+
+@article{mcardle2020quantum,
+  title={Quantum computational chemistry},
+  author={McArdle, Sam and Endo, Suguru and Aspuru-Guzik, Al{\'a}n and Benjamin, Simon C and Yuan, Xiao},
+  journal={Reviews of Modern Physics}, volume={92}, number={1}, pages={015003}, year={2020}
+}
+
+% --- ADAPT-VQE variants ----------------------------------------------------
+@article{tang2021qubitadapt,
+  title={Qubit-{ADAPT}-{VQE}: An adaptive algorithm for constructing hardware-efficient ans{\"a}tze on a quantum processor},
+  author={Tang, Ho Lun and Shkolnikov, V O and Barron, George S and Grimsley, Harper R and Mayhall, Nicholas J and Barnes, Edwin and Economou, Sophia E},
+  journal={PRX Quantum}, volume={2}, number={2}, pages={020310}, year={2021}
+}
+
+@article{yordanov2021qeb,
+  title={Qubit-excitation-based adaptive variational quantum eigensolver},
+  author={Yordanov, Yordan S and Armaos, Vasileios and Barnes, Crispin H W and Arvidsson-Shukur, David R M},
+  journal={Communications Physics}, volume={4}, pages={228}, year={2021}
+}
+
+@article{shkolnikov2023symmetry,
+  title={Avoiding symmetry roadblocks and minimizing the measurement overhead of adaptive variational quantum eigensolvers},
+  author={Shkolnikov, V O and Mayhall, Nicholas J and Economou, Sophia E and Barnes, Edwin},
+  journal={Quantum}, volume={7}, pages={1040}, year={2023}
+}
+
+@article{anastasiou2024tetris,
+  title={{TETRIS-ADAPT-VQE}: An adaptive algorithm that yields shallower, denser circuit ans{\"a}tze},
+  author={Anastasiou, Panagiotis G and Chen, Yanzhu and Mayhall, Nicholas J and Barnes, Edwin and Economou, Sophia E},
+  journal={Physical Review Research}, volume={6}, number={1}, pages={013254}, year={2024}
+}
+
+@article{grimsley2023adaptplateaus,
+  title={Adaptive, problem-tailored variational quantum eigensolver mitigates rough parameter landscapes and barren plateaus},
+  author={Grimsley, Harper R and Barron, George S and Barnes, Edwin and Economou, Sophia E and Mayhall, Nicholas J},
+  journal={npj Quantum Information}, volume={9}, pages={19}, year={2023}
+}
+
+% ===========================================================================
+%  Measurement of ADAPT gradients -- the observable that actually matters
+% ===========================================================================
+@article{anastasiou2023gradients,
+  title={How to really measure operator gradients in {ADAPT-VQE}},
+  author={Anastasiou, Panagiotis G and Mayhall, Nicholas J and Barnes, Edwin and Economou, Sophia E},
+  journal={arXiv preprint arXiv:2306.03227}, year={2023}
+}
+
+@article{nykanen2025aimadapt,
+  title={Mitigating the measurement overhead of {ADAPT-VQE} with optimized informationally complete generalized measurements},
+  author={Nyk{\"a}nen, Anton and Rossi, Matteo A C and Borrelli, Elsi-Mari and Maniscalco, Sabrina and Garc{\'\i}a-P{\'e}rez, Guillermo},
+  journal={Physical Review Research}, volume={7}, number={4}, pages={043114}, year={2025}
+}
+
+@article{ikhtiarudin2026shot,
+  title={Measurement cost reduction in {ADAPT-VQE} via variance-based shot allocation and {P}auli-measurement reuse},
+  author={Ikhtiarudin, Azhar and Sunnardianto, Gagus Ketut and Fathurrahman, Fadjar and Agusta, Mohammad Kemal and Dipojono, Hermawan Kresno},
+  journal={Physica Scripta}, volume={101}, number={2}, pages={255103}, year={2026}
+}
+
+% ===========================================================================
+%  Measurement partitioning / grouping
+% ===========================================================================
+@article{yen2020measuring,
+  title={Measuring all compatible operators in one series of single-qubit measurements using unitary transformations},
+  author={Yen, Tzu-Ching and Verteletskyi, Vladyslav and Izmaylov, Artur F},
+  journal={Journal of Chemical Theory and Computation}, volume={16}, number={4}, pages={2400--2409}, year={2020}
+}
+
+@article{verteletskyi2020mcc,
+  title={Measurement optimization in the variational quantum eigensolver using a minimum clique cover},
+  author={Verteletskyi, Vladyslav and Yen, Tzu-Ching and Izmaylov, Artur F},
+  journal={The Journal of Chemical Physics}, volume={152}, number={12}, pages={124114}, year={2020}
+}
+
+@article{izmaylov2019revising,
+  title={Revising the measurement process in the variational quantum eigensolver: is it possible to reduce the number of separately measured operators?},
+  author={Izmaylov, Artur F and Yen, Tzu-Ching and Ryabinkin, Ilya G},
+  journal={Chemical Science}, volume={10}, number={13}, pages={3746--3755}, year={2019}
+}
+
+@article{crawford2021sortedinsertion,
+  title={Efficient quantum measurement of {P}auli operators in the presence of finite sampling error},
+  author={Crawford, Ophelia and van Straaten, Barnaby and Wang, Daochen and Parks, Thomas and Campbell, Earl and Brierley, Stephen},
+  journal={Quantum}, volume={5}, pages={385}, year={2021}
+}
+
+@article{gokhale2019on3,
+  title={{$O(N^3)$} measurement cost for variational quantum eigensolver on molecular {H}amiltonians},
+  author={Gokhale, Pranav and Angiuli, Olivia and Ding, Yongshan and Gui, Kaiwen and Tomesh, Teague and Suchara, Martin and Martonosi, Margaret and Chong, Frederic T},
+  journal={IEEE Transactions on Quantum Engineering}, volume={1}, pages={1--24}, year={2020}
+}
+
+@article{gokhale2019partitioning,
+  title={Minimizing state preparations in variational quantum eigensolver by partitioning into commuting families},
+  author={Gokhale, Pranav and Angiuli, Olivia and Ding, Yongshan and Gui, Kaiwen and Tomesh, Teague and Suchara, Martin and Martonosi, Margaret and Chong, Frederic T},
+  journal={arXiv preprint arXiv:1907.13623}, year={2019}
+}
+
+@article{bonetmonroig2020scheduling,
+  title={Nearly optimal measurement scheduling for partial tomography of quantum states},
+  author={Bonet-Monroig, Xavier and Babbush, Ryan and O'Brien, Thomas E},
+  journal={Physical Review X}, volume={10}, number={3}, pages={031064}, year={2020}
+}
+
+@article{huang2020shadows,
+  title={Predicting many properties of a quantum system from very few measurements},
+  author={Huang, Hsin-Yuan and Kueng, Richard and Preskill, John},
+  journal={Nature Physics}, volume={16}, number={10}, pages={1050--1057}, year={2020}
+}
+
+@article{huang2021derandomization,
+  title={Efficient estimation of {P}auli observables by derandomization},
+  author={Huang, Hsin-Yuan and Kueng, Richard and Preskill, John},
+  journal={Physical Review Letters}, volume={127}, number={3}, pages={030503}, year={2021}
+}
+
+@article{hadfield2020lbcs,
+  title={Measurements of quantum {H}amiltonians with locally-biased classical shadows},
+  author={Hadfield, Charles and Bravyi, Sergey and Raymond, Rudy and Mezzacapo, Antonio},
+  journal={Communications in Mathematical Physics}, volume={391}, pages={951--967}, year={2022}
+}
+
+@article{jena2019partitioning,
+  title={{P}auli partitioning with respect to gate sets},
+  author={Jena, Andrew and Genin, Scott and Mosca, Michele},
+  journal={arXiv preprint arXiv:1907.07859}, year={2019}
+}
+
+% ===========================================================================
+%  Fermion-to-qubit mappings
+% ===========================================================================
+@article{jordan1928paulische,
+  title={{\"U}ber das {P}aulische {\"A}quivalenzverbot},
+  author={Jordan, Pascual and Wigner, Eugene P},
+  journal={Zeitschrift f{\"u}r Physik}, volume={47}, number={9}, pages={631--651}, year={1928}
+}
+
+@article{bravyi2002fermionic,
+  title={Fermionic quantum computation},
+  author={Bravyi, Sergey B and Kitaev, Alexei Yu},
+  journal={Annals of Physics}, volume={298}, number={1}, pages={210--226}, year={2002}
+}
+
+@article{seeley2012bravyi,
+  title={The {B}ravyi-{K}itaev transformation for quantum computation of electronic structure},
+  author={Seeley, Jacob T and Richard, Martin J and Love, Peter J},
+  journal={The Journal of Chemical Physics}, volume={137}, number={22}, pages={224109}, year={2012}
+}
+
+@article{tranter2015bkproperties,
+  title={The {B}ravyi-{K}itaev transformation: Properties and applications},
+  author={Tranter, Andrew and Sofia, Sarah and Seeley, Jake and Kaicher, Michael and McClean, Jarrod and Babbush, Ryan and Coveney, Peter V and Mintert, Florian and Wilhelm, Frank and Love, Peter J},
+  journal={International Journal of Quantum Chemistry}, volume={115}, number={19}, pages={1431--1441}, year={2015}
+}
+
+@article{tranter2018comparison,
+  title={A comparison of the {B}ravyi--{K}itaev and {J}ordan--{W}igner transformations for the quantum simulation of quantum chemistry},
+  author={Tranter, Andrew and Love, Peter J and Mintert, Florian and Coveney, Peter V},
+  journal={Journal of Chemical Theory and Computation}, volume={14}, number={11}, pages={5617--5630}, year={2018}
+}
+
+@article{jiang2020ternarytree,
+  title={Optimal fermion-to-qubit mapping via ternary trees with applications to reduced quantum states learning},
+  author={Jiang, Zhang and Kalev, Amir and Mruczkiewicz, Wojciech and Neven, Hartmut},
+  journal={Quantum}, volume={4}, pages={276}, year={2020}
+}
+
+@article{setia2018bksf,
+  title={Bravyi-{K}itaev superfast simulation of electronic structure on a quantum computer},
+  author={Setia, Kanav and Whitfield, James D},
+  journal={The Journal of Chemical Physics}, volume={148}, number={16}, pages={164104}, year={2018}
+}
+
+@article{bravyi2017tapering,
+  title={Tapering off qubits to simulate fermionic {H}amiltonians},
+  author={Bravyi, Sergey and Gambetta, Jay M and Mezzacapo, Antonio and Temme, Kristan},
+  journal={arXiv preprint arXiv:1701.08213}, year={2017}
+}
+
+@article{kirby2021csvqe,
+  title={Contextual subspace variational quantum eigensolver},
+  author={Kirby, William M and Tranter, Andrew and Love, Peter J},
+  journal={Quantum}, volume={5}, pages={456}, year={2021}
+}
+
+% ===========================================================================
+%  Matrix-exponential action
+% ===========================================================================
+@article{almohy2011expmv,
+  title={Computing the action of the matrix exponential, with an application to exponential integrators},
+  author={Al-Mohy, Awad H and Higham, Nicholas J},
+  journal={SIAM Journal on Scientific Computing}, volume={33}, number={2}, pages={488--511}, year={2011}
+}
+
+@article{sidje1998expokit,
+  title={{E}xpokit: A software package for computing matrix exponentials},
+  author={Sidje, Roger B},
+  journal={ACM Transactions on Mathematical Software}, volume={24}, number={1}, pages={130--156}, year={1998}
+}
+
+@article{saad1992krylov,
+  title={Analysis of some {K}rylov subspace approximations to the matrix exponential operator},
+  author={Saad, Yousef},
+  journal={SIAM Journal on Numerical Analysis}, volume={29}, number={1}, pages={209--228}, year={1992}
+}
+
+@article{molervanloan2003,
+  title={Nineteen dubious ways to compute the exponential of a matrix, twenty-five years later},
+  author={Moler, Cleve and Van Loan, Charles},
+  journal={SIAM Review}, volume={45}, number={1}, pages={3--49}, year={2003}
+}
+
+% ===========================================================================
+%  Software
+% ===========================================================================
+@article{virtanen2020scipy,
+  title={{SciPy} 1.0: fundamental algorithms for scientific computing in {P}ython},
+  author={Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E and others},
+  journal={Nature Methods}, volume={17}, number={3}, pages={261--272}, year={2020}
+}
+
+@article{sun2020pyscf,
+  title={Recent developments in the {PySCF} program package},
+  author={Sun, Qiming and Zhang, Xing and Banerjee, Samragni and others},
+  journal={The Journal of Chemical Physics}, volume={153}, number={2}, pages={024109}, year={2020}
+}
+
+@misc{qiskit2024,
+  title={Quantum computing with {Q}iskit},
+  author={Javadi-Abhari, Ali and Treinish, Matthew and Krsulich, Kevin and others},
+  howpublished={arXiv:2405.08810}, year={2024}
+}
+
+@article{chiew2024ternary,
+  title={Ternary tree transformations are equivalent to linear encodings of the {F}ock basis},
+  author={Chiew, Mitchell and Harrison, Brent and Strelchuk, Sergii},
+  journal={arXiv preprint arXiv:2412.07578},
+  year={2024}
+}
+
+@article{chiew2025optimal,
+  title={Optimal fermion-qubit mappings via quadratic assignment},
+  author={Chiew, Mitchell and Ibrahim, Cameron and Safro, Ilya and Strelchuk, Sergii},
+  journal={arXiv preprint arXiv:2504.21636},
+  year={2025}
+}
+
+@article{harris2020numpy,
+  title={Array programming with {NumPy}},
+  author={Harris, Charles R and Millman, K Jarrod and van der Walt, St{\'e}fan J and others},
+  journal={Nature}, volume={585}, pages={357--362}, year={2020}
+}

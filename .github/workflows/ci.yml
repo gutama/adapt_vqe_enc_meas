@@ -1,0 +1,25 @@
+name: core-validation
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install core dependencies
+        run: pip install -r requirements-core.txt
+      - name: Run core tests
+        run: python test_grouping.py
+      - name: Validate stored results
+        run: python validate_results.py
+      - name: Regenerate manuscript data
+        run: python generate_paper_data.py
+      - name: Check generated table fragment is committed
+        run: git diff --exit-code -- paper/generated_results.tex

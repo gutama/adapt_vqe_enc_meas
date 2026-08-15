@@ -1,0 +1,5 @@
+numpy==2.4.4
+scipy==1.17.1
+qiskit==2.5.2
+qiskit-nature==0.8.0
+pyscf==2.14.0

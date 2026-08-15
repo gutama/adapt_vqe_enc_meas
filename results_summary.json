@@ -1,0 +1,155 @@
+{
+  "environment": {
+    "python": "3.12.3",
+    "qiskit": "2.5.2",
+    "qiskit_nature": "0.8.0",
+    "pyscf": "2.14.0",
+    "scipy": "1.17.1",
+    "numpy": "2.4.4",
+    "platform": "Linux-6.18.5-fc-v20-x86_64-with-glibc2.39"
+  },
+  "stretch": 2.0,
+  "molecules": [
+    {
+      "molecule": "LiH",
+      "reference": {"e_casci": -7.719993469144923},
+      "mappers": {
+        "JW": {
+          "n_qubits": 8,
+          "pool_size": 9,
+          "adapt": {"energy": -7.7199934691449235, "exact": -7.719993469144924, "n_ops": 4, "state_norm": 0.9999999999999999, "err_vs_casci_mHa": -8.881784197001252e-13},
+          "observables": {
+            "pool_generators": {"qwc": {"n_terms": 84}},
+            "gradient_commutators": {"qwc": {"n_terms": 1760, "n_groups_lf": 414, "n_groups_sorted_insertion": 441, "clique_lower_bound": 348}},
+            "hamiltonian": {"qwc": {"n_terms": 104}}
+          },
+          "gradient_independent_metric": {"qwc_lf": 42.789342117077666, "qwc_sorted_insertion": 35.86317465338306, "gc_lf": 23.007239316076983},
+          "gradient_shared_metric": {
+            "qwc_lf": {"metric": 23.72444589070719, "diagnostics": {"success": true, "max_constraint": 1.0000000145247587, "relative_duality_gap": 7.375936803611598e-10, "active_gradients": 9, "active_groups": 414}},
+            "qwc_sorted_insertion": {"metric": 18.1467951116286, "diagnostics": {"success": true, "max_constraint": 1.000000004374685, "relative_duality_gap": 6.729900827042642e-10, "active_gradients": 9, "active_groups": 441}},
+            "gc_lf": {"metric": 14.158975404925565, "diagnostics": {"success": true, "max_constraint": 1.0000000048640123, "relative_duality_gap": 4.475682417850986e-09, "active_gradients": 9, "active_groups": 65}}
+          }
+        },
+        "BK": {
+          "n_qubits": 8,
+          "pool_size": 9,
+          "adapt": {"energy": -7.7199934691449235, "exact": -7.719993469144923, "n_ops": 4, "state_norm": 0.9999999999999999, "err_vs_casci_mHa": -8.881784197001252e-13},
+          "observables": {
+            "pool_generators": {"qwc": {"n_terms": 84}},
+            "gradient_commutators": {"qwc": {"n_terms": 1760, "n_groups_lf": 266, "n_groups_sorted_insertion": 277, "clique_lower_bound": 255}},
+            "hamiltonian": {"qwc": {"n_terms": 104}}
+          },
+          "gradient_independent_metric": {"qwc_lf": 53.77807309534407, "qwc_sorted_insertion": 33.23665340722981, "gc_lf": 26.727958716203464},
+          "gradient_shared_metric": {
+            "qwc_lf": {"metric": 29.533570189879413, "diagnostics": {"success": true, "max_constraint": 1.0000000026321878, "relative_duality_gap": 1.090285401351262e-11, "active_gradients": 9, "active_groups": 264}},
+            "qwc_sorted_insertion": {"metric": 17.190236997989384, "diagnostics": {"success": true, "max_constraint": 1.0000000334318613, "relative_duality_gap": 1.1518170893166025e-09, "active_gradients": 9, "active_groups": 245}},
+            "gc_lf": {"metric": 16.501102751469013, "diagnostics": {"success": true, "max_constraint": 1.0000000254695602, "relative_duality_gap": 1.2642171411248148e-09, "active_gradients": 9, "active_groups": 66}}
+          }
+        }
+      },
+      "mapping_validation": {
+        "symplectic": true,
+        "support_equivalence": {"hamiltonian": true, "pool_generators": true, "gradient_commutators": true},
+        "paired_gc": {
+          "hamiltonian": {"n_groups_jw": 8, "n_groups_bk_paired": 8, "raw_label_tiebreak_bk": 8},
+          "pool_generators": {"n_groups_jw": 14, "n_groups_bk_paired": 14, "raw_label_tiebreak_bk": 14},
+          "gradient_commutators": {"n_groups_jw": 66, "n_groups_bk_paired": 66, "raw_label_tiebreak_bk": 67, "independent_metric_jw": 23.007239316076983, "independent_metric_bk_paired": 23.007239316076983}
+        }
+      }
+    },
+    {
+      "molecule": "BeH2",
+      "reference": {"e_casci": -15.237753006176217},
+      "mappers": {
+        "JW": {
+          "n_qubits": 8,
+          "pool_size": 13,
+          "adapt": {"energy": -15.234386719410725, "exact": -15.23775300617621, "n_ops": 6, "state_norm": 1.0, "err_vs_casci_mHa": 3.366286765491111},
+          "observables": {
+            "pool_generators": {"qwc": {"n_terms": 128}},
+            "gradient_commutators": {"qwc": {"n_terms": 2212, "n_groups_lf": 449, "n_groups_sorted_insertion": 502, "clique_lower_bound": 396}},
+            "hamiltonian": {"qwc": {"n_terms": 104}}
+          },
+          "gradient_independent_metric": {"qwc_lf": 68.9110543740213, "qwc_sorted_insertion": 62.230604722366365, "gc_lf": 28.590064952726664},
+          "gradient_shared_metric": {
+            "qwc_lf": {"metric": 25.25532918485741, "diagnostics": {"success": true, "max_constraint": 1.000000002164499, "relative_duality_gap": 1.5854898246022572e-10, "active_gradients": 13, "active_groups": 449}},
+            "qwc_sorted_insertion": {"metric": 21.79730873908914, "diagnostics": {"success": true, "max_constraint": 1.000000026387372, "relative_duality_gap": 1.953405958768039e-09, "active_gradients": 13, "active_groups": 502}},
+            "gc_lf": {"metric": 10.191742885042807, "diagnostics": {"success": true, "max_constraint": 1.0000000705464636, "relative_duality_gap": 6.051042423998431e-10, "active_gradients": 13, "active_groups": 68}}
+          }
+        },
+        "BK": {
+          "n_qubits": 8,
+          "pool_size": 13,
+          "adapt": {"energy": -15.234386719410727, "exact": -15.23775300617621, "n_ops": 6, "state_norm": 1.0000000000000002, "err_vs_casci_mHa": 3.3662867654893347},
+          "observables": {
+            "pool_generators": {"qwc": {"n_terms": 128}},
+            "gradient_commutators": {"qwc": {"n_terms": 2212, "n_groups_lf": 276, "n_groups_sorted_insertion": 284, "clique_lower_bound": 253}},
+            "hamiltonian": {"qwc": {"n_terms": 104}}
+          },
+          "gradient_independent_metric": {"qwc_lf": 59.32728193412821, "qwc_sorted_insertion": 49.132241247416694, "gc_lf": 28.77081203755211},
+          "gradient_shared_metric": {
+            "qwc_lf": {"metric": 19.870416058630227, "diagnostics": {"success": true, "max_constraint": 1.0000000057286724, "relative_duality_gap": 2.1285691050069867e-10, "active_gradients": 13, "active_groups": 276}},
+            "qwc_sorted_insertion": {"metric": 14.333723007708945, "diagnostics": {"success": true, "max_constraint": 1.000000023030418, "relative_duality_gap": 2.1640236621880713e-09, "active_gradients": 13, "active_groups": 284}},
+            "gc_lf": {"metric": 9.635301218102496, "diagnostics": {"success": true, "max_constraint": 1.0000001283683233, "relative_duality_gap": 1.0116836984611456e-09, "active_gradients": 13, "active_groups": 70}}
+          }
+        }
+      },
+      "mapping_validation": {
+        "symplectic": true,
+        "support_equivalence": {"hamiltonian": true, "pool_generators": true, "gradient_commutators": true},
+        "paired_gc": {
+          "hamiltonian": {"n_groups_jw": 8, "n_groups_bk_paired": 8, "raw_label_tiebreak_bk": 8},
+          "pool_generators": {"n_groups_jw": 7, "n_groups_bk_paired": 7, "raw_label_tiebreak_bk": 8},
+          "gradient_commutators": {"n_groups_jw": 68, "n_groups_bk_paired": 68, "raw_label_tiebreak_bk": 70, "independent_metric_jw": 28.590064952726664, "independent_metric_bk_paired": 28.590064952726696}
+        }
+      }
+    },
+    {
+      "molecule": "H2O",
+      "reference": {"e_casci": -74.76650480888398},
+      "mappers": {
+        "JW": {
+          "n_qubits": 8,
+          "pool_size": 13,
+          "adapt": {"energy": -74.74561936688379, "exact": -74.76650480888397, "n_ops": 9, "state_norm": 0.9999999999999999, "err_vs_casci_mHa": 20.88544200019271},
+          "observables": {
+            "pool_generators": {"qwc": {"n_terms": 128}},
+            "gradient_commutators": {"qwc": {"n_terms": 2344, "n_groups_lf": 467, "n_groups_sorted_insertion": 540, "clique_lower_bound": 420}},
+            "hamiltonian": {"qwc": {"n_terms": 184}}
+          },
+          "gradient_independent_metric": {"qwc_lf": 234.52286611646102, "qwc_sorted_insertion": 198.39211884156134, "gc_lf": 48.89373412672379},
+          "gradient_shared_metric": {
+            "qwc_lf": {"metric": 56.43981020682402, "diagnostics": {"success": true, "max_constraint": 1.0000000059159957, "relative_duality_gap": 4.1323134067463186e-10, "active_gradients": 13, "active_groups": 467}},
+            "qwc_sorted_insertion": {"metric": 44.12090604141431, "diagnostics": {"success": true, "max_constraint": 1.0000000064387815, "relative_duality_gap": 2.453737604216575e-09, "active_gradients": 13, "active_groups": 540}},
+            "gc_lf": {"metric": 12.397709227834543, "diagnostics": {"success": true, "max_constraint": 1.0000000020461037, "relative_duality_gap": 1.0363849580343933e-09, "active_gradients": 13, "active_groups": 52}}
+          }
+        },
+        "BK": {
+          "n_qubits": 8,
+          "pool_size": 13,
+          "adapt": {"energy": -74.74561936688379, "exact": -74.76650480888397, "n_ops": 9, "state_norm": 1.0, "err_vs_casci_mHa": 20.88544200019271},
+          "observables": {
+            "pool_generators": {"qwc": {"n_terms": 128}},
+            "gradient_commutators": {"qwc": {"n_terms": 2344, "n_groups_lf": 295, "n_groups_sorted_insertion": 284, "clique_lower_bound": 263}},
+            "hamiltonian": {"qwc": {"n_terms": 184}}
+          },
+          "gradient_independent_metric": {"qwc_lf": 144.70655519181219, "qwc_sorted_insertion": 129.99586475484318, "gc_lf": 48.82341241374456},
+          "gradient_shared_metric": {
+            "qwc_lf": {"metric": 37.2721839031385, "diagnostics": {"success": true, "max_constraint": 1.0000000035521224, "relative_duality_gap": 1.728002735434432e-11, "active_gradients": 13, "active_groups": 295}},
+            "qwc_sorted_insertion": {"metric": 25.621589176674583, "diagnostics": {"success": true, "max_constraint": 1.0000001672787138, "relative_duality_gap": 1.1433954893203584e-09, "active_gradients": 13, "active_groups": 284}},
+            "gc_lf": {"metric": 13.217612901689318, "diagnostics": {"success": true, "max_constraint": 1.000000008499695, "relative_duality_gap": 2.1722143409346365e-09, "active_gradients": 13, "active_groups": 53}}
+          }
+        }
+      },
+      "mapping_validation": {
+        "symplectic": true,
+        "support_equivalence": {"hamiltonian": true, "pool_generators": true, "gradient_commutators": true},
+        "paired_gc": {
+          "hamiltonian": {"n_groups_jw": 9, "n_groups_bk_paired": 9, "raw_label_tiebreak_bk": 9},
+          "pool_generators": {"n_groups_jw": 7, "n_groups_bk_paired": 7, "raw_label_tiebreak_bk": 8},
+          "gradient_commutators": {"n_groups_jw": 52, "n_groups_bk_paired": 52, "raw_label_tiebreak_bk": 53, "independent_metric_jw": 48.89373412672379, "independent_metric_bk_paired": 48.89373412694461}
+        }
+      }
+    }
+  ]
+}
