@@ -16,8 +16,11 @@ import json
 
 from adapt import MAPPERS, MOLECULES, build_problem, unique_terms
 from grouping import greedy_color, greedy_clique_lower_bound, structure_stats
-from mapping_validation import (mapper_symplectic_transform, support_equivalent,
-                           transform_groups)
+from mapping_validation import (
+    mapper_symplectic_transform,
+    support_equivalent,
+    transform_groups,
+)
 
 
 def sweep(name, elec_fn, orb_list, with_lb=True):
