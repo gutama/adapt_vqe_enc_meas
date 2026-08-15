@@ -69,6 +69,8 @@ The core test suite also cross-checks the dual solver against an independent SLS
 
 ## Stored-result validation
 
+A fresh full benchmark is reduced to the manuscript-facing summary with `summarize_results.py`; validation and table generation read that summary.
+
 Run:
 
 ```bash
