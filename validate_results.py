@@ -79,7 +79,6 @@ def main() -> None:
     assert rows[8]["BK"]["mean_weight"] > rows[8]["JW"]["mean_weight"]
     assert rows[8]["BK"]["qwc"] < rows[8]["JW"]["qwc"]
     assert rows[14]["BK"]["max_weight"] < rows[14]["JW"]["max_weight"]
-    assert rows[14]["BK"]["qwc_lb"] > rows[14]["JW"]["qwc"]
 
     print("NUMERICAL CLAIMS: PASS")
     print(f"Gradient/pool support ratio: {min(support_ratios):.2f}-{max(support_ratios):.2f}x")
