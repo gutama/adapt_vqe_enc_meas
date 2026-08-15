@@ -1,0 +1,134 @@
+# ADAPT-VQE Encoding and Measurement Grouping
+
+Reproducibility package for:
+
+**Encoding Dependence of ADAPT-VQE Gradient Measurements: Qubit-Wise Packing and Full-Commutation Invariance**  
+Hermawan Kresno Dipojono, Ginanjar Utama, and Azhar Ikhtiarudin (2026)
+
+The repository studies how Jordan-Wigner (JW) and Bravyi-Kitaev (BK) encodings affect the measurement problem in molecular ADAPT-VQE when the measured objects are the **gradient commutators** rather than the mapped operator pool.
+
+## Main results
+
+- The union of ADAPT gradient-commutator Pauli terms is **17.3-21.0x larger** than the mapped pool support in the three 8-qubit benchmarks.
+- For LiH, BeH2, and H2O, BK reduces largest-first QWC gradient groups by **35.7-38.5%**. In every case, the BK feasible count is below the JW clique lower bound, so the ordering is certified without assuming greedy optimality.
+- An N2 sweep from 8 to 16 qubits is non-monotonic. At 14 qubits BK is provably worse (`BK LB = 215 > JW feasible = 196`); at 16 qubits BK is provably better (`BK feasible = 299 < JW LB = 338`).
+- Full/general Pauli commutation is invariant under the JW-BK Clifford/binary basis transformation. A JW GC partition transferred through the Pauli bijection has the same cardinality and the same grouped variance in BK.
+- Reusing a group measurement across all gradient components materially lowers the continuous sampling metric. Across the LF and sorted-insertion QWC partitions, `M_ind / M_share` ranges from **1.8x to 5.1x**.
+- Group count and sampling cost need not rank encodings the same way. For LiH, BK has fewer LF QWC groups but a **24.5% larger** LF shared-shot metric; sorted insertion instead favors BK by **5.3%**.
+
+The compiled paper is [`paper/paper.pdf`](paper/paper.pdf).
+
+## Repository contents
+
+- `adapt.py` - molecular setup, operator pool, ADAPT loop, and propagation routines.
+- `grouping.py` - QWC/GC compatibility, greedy and sorted-insertion grouping, clique lower bounds, variance matrices, and shared-shot optimization.
+- `mapping_validation.py` - GF(2)/symplectic reconstruction of the JW-to-BK Pauli map and transferred GC partitions.
+- `run_benchmark.py` - LiH, BeH2, and H2O ADAPT-VQE benchmark.
+- `run_qubit_sweep.py` - N2 active-space QWC sweep from 8 to 16 qubits.
+- `run_scaling.py` - auxiliary grouping/scaling study.
+- `results.json` - canonical molecular benchmark results, including shared-shot metrics.
+- `qubit_sweep.json` - canonical N2 sweep.
+- `scaling.json` - auxiliary scaling output.
+- `generate_paper_data.py` - regenerates all manuscript numerical macros/tables from JSON.
+- `validate_results.py` - checks the numerical inequalities and invariants used in the paper without recomputing chemistry.
+- `test_grouping.py` - lightweight algebra, grouping, GF(2), and allocation tests; chemistry integration runs when the full stack is installed.
+- `paper/` - LaTeX source, bibliography, generated table fragment, and compiled PDF.
+- `VALIDATION.md` - verification record for the canonical result files.
+
+## Environment
+
+The canonical chemistry results use:
+
+```text
+Python        3.12.3
+Qiskit        2.5.2
+Qiskit Nature 0.8.0
+PySCF         2.14.0
+SciPy         1.17.1
+NumPy         2.4.4
+```
+
+Install the complete stack with:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+For the lightweight tests and stored-result validation only:
+
+```bash
+pip install -r requirements-core.txt
+python test_grouping.py
+python validate_results.py
+```
+
+## Reproduce the tables and paper
+
+Regenerate all numerical LaTeX fragments from the canonical JSON:
+
+```bash
+python generate_paper_data.py
+```
+
+Build the paper with a standard RevTeX/BibTeX installation:
+
+```bash
+cd paper
+latexmk -pdf manuscript.tex
+```
+
+or simply:
+
+```bash
+make paper
+```
+
+## Recompute the molecular benchmark
+
+With the full scientific stack installed:
+
+```bash
+python run_benchmark.py --shared-shot-metric --out results.json
+python validate_results.py
+python generate_paper_data.py
+```
+
+The benchmark enforces state normalization, JW/BK energy invariance, agreement between exact qubit-Hamiltonian and active-space CASCI energies, Pauli-support equivalence under the reconstructed symplectic map, valid transferred GC partitions, and paired GC variance invariance.
+
+## Recompute the N2 sweep
+
+```bash
+python run_qubit_sweep.py --orbs 4 5 6 7 8 --out qubit_sweep.json
+python validate_results.py
+python generate_paper_data.py
+```
+
+## Measurement metrics
+
+For a fixed grouping, the independent-gradient metric is
+
+\[
+M_{\mathrm{ind}}=\sum_j\left(\sum_g\sqrt{V_{jg}}\right)^2.
+\]
+
+It treats every gradient component as an independently allocated experiment.
+
+The shared-shot metric solves
+
+\[
+\min_{n_g>0}\sum_g n_g
+\quad\text{s.t.}\quad
+\sum_g \frac{V_{jg}}{n_g}\le 1\quad\forall j,
+\]
+
+so one group measurement can contribute to every gradient containing terms from that group. For target standard error `eps`, multiply the reported continuous optimum by `1/eps**2`.
+
+## Continuous integration
+
+A lightweight GitHub Actions workflow under `.github/workflows/ci.yml` validates the core algorithms, stored numerical claims, and generated paper tables on Python 3.12 without requiring Qiskit or PySCF.
+
+## Citation
+
+GitHub can read the included `CITATION.cff`; the preferred citation is the accompanying paper.
